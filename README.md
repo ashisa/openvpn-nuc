@@ -1,4 +1,4 @@
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fashisa%2Fopenvpn-ubuntu%2Fmaster%2Fazuredeploy.json" target="_blank">
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fashisa%2Fopenvpn-nuc%2Fmaster%2Fazuredeploy.json" target="_blank">
 <img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.png"/>
 </a>
 
@@ -10,7 +10,7 @@ author: Ashish Sahu
 
 # ARM template to deploy and configure OpenVPN on Ubuntu 16.04.0-LTS automatically
 
-This ARM template deploys a Ubuntu 16.04.0-LTS VM and configures the OpenVPN server automatically for you. The custom extension script also creates a client configuration file that can be download and used on  Linux, Mac and Windows machine using any OpenVPN-compatible client to connect to the Azure VNet.
+This ARM template deploys a Ubuntu 16.04.0-LTS VM and configures the OpenVPN server automatically for you. The custom extension script also creates a client configuration file that can be downloaded and used on  Linux, Mac and Windows machine using any OpenVPN-compatible client to connect to the Azure VNet.
 
 While deploying this ARM template in your Azure subscription, you will to provide the following parameters -
 + Hostname - Will be used as the hostname of the VM
@@ -26,7 +26,6 @@ While deploying this ARM template in your Azure subscription, you will to provid
 + OpenVPN Protocol - Select TCP or UDP as the protocol to be used for VPN connections to this VPN server
 + OpenVPN Port Number - Change this if you wish to configure OpenVPN to listen on a non-default portal
 + All Traffic - Select true if you wish to use this VM as a forward all VPN server. False, if you are deploying this VM to access your virtual network subnets using a VPN client
-+ Subnets - Not used at the moment
 
 Following is a cursory list of things that are executed by the custom extension script after the VM has been provisioned successfully -
 
@@ -41,10 +40,14 @@ Following is a cursory list of things that are executed by the custom extension 
 This custom extesion script takes a little over 8-minutes after the VM has been provisioned to configure a fully functioning OpenVPN server. Once the deployment is successful, you can copy the client configuration file using your favorite SCP client (I use pscp) using the following syntax -
 
 ```bash
-pscp <admin user name>@<server public ip>:/etc/client-configs/files/<hostname>-client.ovpn .
+pscp <admin user name>@<server public ip>:/etc/openvpn/client-configs/files/<hostname-of-the-vpn-server>-client.ovpn .
+```
+
+You can also use scp -
+
+```bash
+scp <admin user name>@<server public ip>:/etc/openvpn/client-configs/files/<hostname-of-the-vpn-server>-client.ovpn .
 ```
 
 You can now import this client configuration file with your choice of OpenVPN client and connect from Windows, Mac or Linux machines.
-
-Note: This template is work in progress to more features. Please drop me a note with your suggestions to improve this template.
 
