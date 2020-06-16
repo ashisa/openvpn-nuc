@@ -98,13 +98,6 @@
       "metadata": {
         "description": "Select yes if you wish the redirect all traffic from the VPN clients through teh VPN server"
       }
-    },
-    "ovpnSubnets": {
-      "type": "string",
-      "minLength": 1,
-      "metadata": {
-        "description": "NOT USED: If you are not routing all the traffic through VPN, enter the internal subnet separated by ';' to add the routes for them on the clients. For example, 10.0.1.0 255.255.255.0;10.0.2.0 255.255.255.0"
-      }
     }
   },
   "variables": {
@@ -115,7 +108,7 @@
     "ovpnsrvImagePublisher": "Canonical",
     "ovpnsrvImageOffer": "UbuntuServer",
     "ovpnsrvOSDiskName": "ovpnsrvOSDisk",
-    "ovpnsrvVmSize": "Standard_D1",
+    "ovpnsrvVmSize": "Standard_B2MS",
     "ovpnsrvVnetID": "[resourceId('Microsoft.Network/virtualNetworks', 'ovpnsrvvnet')]",
     "ovpnsrvSubnetRef": "[concat(variables('ovpnsrvVnetID'), '/subnets/', variables('ovpnsrvvnetSubnet1Name'))]",
     "ovpnsrvStorageAccountContainerName": "vhds",
@@ -299,7 +292,7 @@
             "autoUpgradeMinorVersion": true,
             "settings": {
               "fileUris": [
-                "https://raw.githubusercontent.com/ashisa/openvpn-ubuntu/master/ovpn_install.sh"
+                "https://raw.githubusercontent.com/ashisa/openvpn-nuc/master/ovpn_install.sh"
               ]
             },
             "protectedSettings": {

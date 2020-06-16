@@ -71,6 +71,11 @@ sudo sed -i "s/`grep \"duplicate-cn\" /etc/openvpn/server.conf`/duplicate-cn/g" 
 if [ "$vpnAllTraffic" = "yes" ]; then
     sudo sed -i "s/`grep redirect-gateway /etc/openvpn/server.conf`/push \"redirect-gateway def1 bypass-dhcp\"/g" /etc/openvpn/server.conf
     sudo sed -i "s/`grep -m1 dhcp-option /etc/openvpn/server.conf`/push \"dhcp-option DNS 208.67.222.222\"\npush \"dhcp-option DNS 208.67.220.220\"/g" /etc/openvpn/server.conf
+else
+    echo 'push "route 216.239.34.21 255.255.255.255"' >>/etc/openvpn/server.conf
+    echo 'push "route 216.239.36.21 255.255.255.255"' >>/etc/openvpn/server.conf
+    echo 'push "route 216.239.38.21 255.255.255.255"' >>/etc/openvpn/server.conf
+    echo 'push "route 216.239.32.21 255.255.255.255"' >>/etc/openvpn/server.conf
 fi
 
 echo Modifying port and protocol to be used
